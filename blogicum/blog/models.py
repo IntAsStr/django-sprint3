@@ -8,11 +8,11 @@ class Category(models.Model):
         max_length=256,
         null=False,
         verbose_name='Заголовок'
-        )
+    )
     description = models.TextField(
         null=False,
         verbose_name='Описание'
-        )
+    )
     slug = models.SlugField(
         unique=True,
         null=False,
@@ -21,19 +21,19 @@ class Category(models.Model):
             'Идентификатор страницы для URL; '
             'разрешены символы латиницы, цифры,'
             ' дефис и подчёркивание.'
-            )
         )
+    )
     is_published = models.BooleanField(
         default=True,
         null=False,
         verbose_name='Опубликовано',
         help_text='Снимите галочку, чтобы скрыть публикацию.'
-        )
+    )
     created_at = models.DateTimeField(
         auto_now_add=True,
         null=False,
         verbose_name='Добавлено'
-        )
+    )
 
     class Meta:
         verbose_name = 'категория'
@@ -48,17 +48,17 @@ class Location(models.Model):
         max_length=256,
         null=False,
         verbose_name='Название места'
-        )
+    )
     is_published = models.BooleanField(
         default=True,
         null=False,
         verbose_name='Опубликовано'
-        )
+    )
     created_at = models.DateTimeField(
         auto_now_add=True,
         null=False,
         verbose_name='Добавлено'
-        )
+    )
 
     class Meta:
         verbose_name = 'местоположение'
@@ -76,47 +76,47 @@ class Post(models.Model):
         max_length=256,
         null=False,
         verbose_name='Заголовок'
-        )
+    )
     text = models.TextField(
         null=False,
         verbose_name='Текст'
-        )
+    )
     pub_date = models.DateTimeField(
         null=False,
         verbose_name='Дата и время публикации',
         help_text='Если установить дату и время в будущем — ' \
         'можно делать отложенные публикации.'
-        )
+    )
     author = models.ForeignKey(
         User,
         null=False,
         on_delete=models.CASCADE,
         verbose_name='Автор публикации'
-        )
+    )
     location = models.ForeignKey(
         Location,
         null=True,
         on_delete=models.SET_NULL,
         verbose_name='Местоположение'
-        )
+    )
     category = models.ForeignKey(
         Category,
         null=True,
         on_delete=models.SET_NULL,
         blank=False,
         verbose_name='Категория'
-        )
+    )
     is_published = models.BooleanField(
         default=True,
         null=False,
         verbose_name='Опубликовано',
         help_text='Снимите галочку, чтобы скрыть публикацию.'
-        )
+    )
     created_at = models.DateTimeField(
         auto_now_add=True,
         null=False,
         verbose_name='Добавлено'
-        )
+    )
 
     class Meta:
         verbose_name = 'публикация'
