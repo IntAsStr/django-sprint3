@@ -3,10 +3,12 @@ from django.db import models
 from django.contrib.auth import get_user_model
 
 
+User = get_user_model()
+
+
 class Category(models.Model):
     title = models.CharField(
         max_length=256,
-        null=False,
         verbose_name='Заголовок'
     )
     description = models.TextField(
@@ -15,7 +17,6 @@ class Category(models.Model):
     )
     slug = models.SlugField(
         unique=True,
-        null=False,
         verbose_name='Идентификатор',
         help_text=(
             'Идентификатор страницы для URL; '
@@ -25,13 +26,11 @@ class Category(models.Model):
     )
     is_published = models.BooleanField(
         default=True,
-        null=False,
         verbose_name='Опубликовано',
         help_text='Снимите галочку, чтобы скрыть публикацию.'
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
-        null=False,
         verbose_name='Добавлено'
     )
 
@@ -46,17 +45,14 @@ class Category(models.Model):
 class Location(models.Model):
     name = models.CharField(
         max_length=256,
-        null=False,
         verbose_name='Название места'
     )
     is_published = models.BooleanField(
         default=True,
-        null=False,
         verbose_name='Опубликовано'
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
-        null=False,
         verbose_name='Добавлено'
     )
 
@@ -68,30 +64,26 @@ class Location(models.Model):
         return self.name
 
 
-User = get_user_model()
-
-
 class Post(models.Model):
     title = models.CharField(
         max_length=256,
-        null=False,
         verbose_name='Заголовок'
     )
     text = models.TextField(
-        null=False,
         verbose_name='Текст'
     )
     pub_date = models.DateTimeField(
-        null=False,
         verbose_name='Дата и время публикации',
-        help_text='Если установить дату и время в будущем — '
-        'можно делать отложенные публикации.'
+        help_text=(
+            'Если установить дату и время в будущем — '
+            'можно делать отложенные публикации.'
+        )
     )
     author = models.ForeignKey(
         User,
-        null=False,
         on_delete=models.CASCADE,
-        verbose_name='Автор публикации'
+        verbose_name='Автор публикации',
+        related_name='posts'
     )
     location = models.ForeignKey(
         Location,
@@ -108,13 +100,11 @@ class Post(models.Model):
     )
     is_published = models.BooleanField(
         default=True,
-        null=False,
         verbose_name='Опубликовано',
         help_text='Снимите галочку, чтобы скрыть публикацию.'
     )
     created_at = models.DateTimeField(
         auto_now_add=True,
-        null=False,
         verbose_name='Добавлено'
     )
 
