@@ -3,6 +3,7 @@ from django.contrib import admin
 from .models import Category, Location, Post
 
 
+@admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
     list_display = (
         'title',
@@ -21,9 +22,8 @@ class CategoryAdmin(admin.ModelAdmin):
     list_filter = ('is_published',)
 
 
-admin.site.register(Category, CategoryAdmin)
 
-
+@admin.register(Location)
 class LocationAdmin(admin.ModelAdmin):
     list_display = (
         'name',
@@ -39,9 +39,7 @@ class LocationAdmin(admin.ModelAdmin):
     list_filter = ('name',)
 
 
-admin.site.register(Location, LocationAdmin)
-
-
+@admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = (
         'title',
@@ -61,6 +59,3 @@ class PostAdmin(admin.ModelAdmin):
 
     search_fields = ('title', 'author')
     list_filter = ('is_published', 'author', 'title')
-
-
-admin.site.register(Post, PostAdmin)
