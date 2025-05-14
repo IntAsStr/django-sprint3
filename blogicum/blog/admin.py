@@ -22,7 +22,6 @@ class CategoryAdmin(admin.ModelAdmin):
     list_filter = ('is_published',)
 
 
-
 @admin.register(Location)
 class LocationAdmin(admin.ModelAdmin):
     list_display = (
